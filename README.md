@@ -313,3 +313,141 @@ This renders the `index.html` file that will be used to interact with the backen
 **Throws**
 
 - `403` if the user is not logged in
+
+#### `GET /api/reactions?freetId=id` - Get the reactions on a freet
+
+**Returns**
+
+- A success message
+- An object with the reactions on the freet and their counts
+
+**Throws**
+
+- `404` if the freetId is invalid
+
+#### `POST /api/reactions?freetId=id` - Add a reaction to a freet
+
+**Body**
+
+- `reaction` _{string}_ - The reaction to be added (`"happy"`, `"laughing"`, `"sad"`, `"angry"`)
+
+**Returns**
+
+- A success message
+- An object with the reactions on the freet and their counts
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if there is already a reaction on the freet by the user
+- `404` if the freetId is invalid
+
+#### `PUT /api/reactions?freetId=id` - Change a reaction to a freet
+
+**Body**
+
+- `reaction` _{string}_ - The new reaction to be added (`"happy"`, `"laughing"`, `"sad"`, `"angry"`)
+
+**Returns**
+
+- A success message
+- An object with the reactions on the freet and their counts
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if there is no reaction on the freet by the user
+- `404` if the freetId is invalid
+
+#### `DELETE /api/reactions?freetId=id` - Remove a reaction from a freet
+
+**Returns**
+
+- A success message
+- true if reaction was deleted; false otherwise
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if there is no reaction on the freet by the user
+- `404` if the freetId is invalid
+
+#### `GET /api/hashtags/:freetId` - Get the hashtags on a freet
+
+**Returns**
+
+- A success message
+- An object with the hashtags on the freet
+
+**Throws**
+
+- `404` if the freetId is invalid
+
+#### `POST /api/hashtags/:freetId` - Add a hashtag to a freet
+
+**Body**
+
+- `hashtag` _{string}_ - The name of the hashtag
+
+**Returns**
+
+- A success message
+- An object with the hashtags on the freet
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if there is already the hashtag on the freet
+- `403` if the user is not the author of the freet
+- `404` if the freetId is invalid
+
+#### `DELETE /api/hashtags/:freetId/:hashtag` - Remove a hashtag from a freet
+
+**Returns**
+
+- A success message
+- An object with the hashtags on the freet
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if there is no such hashtag on the freet
+- `403` if the user is not the author of the freet
+- `404` if the freetId is invalid
+
+#### `GET /api/hashtags/freets/:hashtag` - Get the two newest posts with a particular hashtag
+
+**Returns**
+
+- A success message
+- An object with two freets with the given hashtag
+
+#### `GET /api/feed/unlockFeed` - Adds 5 new posts to the user feed
+
+**Returns**
+
+- A success message
+- An object with the posts in the feed
+
+**Throws**
+
+- `403` if the user is not logged in
+- `404` if the user has no post unlocks left
+
+#### `POST /api/feed/approvePost` - Add 1 to the user's post unlocks
+
+**Body**
+
+- `freetId` _{string}_ - The freet by the user that was approved
+
+**Returns**
+
+- A success message
+- An object with the user's remaining post unlocks
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if the user is not the author of the freet
+- `403` if the freet was not approved (not enough positive reactions)
+- `404` if the freetId is invalid
