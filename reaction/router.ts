@@ -6,15 +6,6 @@ import * as freetValidator from '../freet/middleware';
 import * as util from './util';
 
 const router = express.Router();
-
-/**
- * Get all the reactions
- *
- * @name GET /api/freets
- *
- * @return {ReactionResponse[]} - A list of all the freets sorted in descending
- *                      order by date modified
- */
 /**
  * Get reactions by freet.
  *
@@ -26,15 +17,6 @@ const router = express.Router();
  */
 router.get(
   '/',
-  async (req: Request, res: Response, next: NextFunction) => {
-    // Check if authorId query parameter was supplied
-    if (req.query.freetId !== undefined) {
-      next();
-    }
-  },
-  [
-    freetValidator.isFreetExists
-  ],
   async (req: Request, res: Response) => {
     const allReactions = await ReactionCollection.findOne(req.query.freetId as string);
     const response = util.constructReactionResponse(allReactions);
@@ -51,13 +33,11 @@ router.get(
  * @return {FreetResponse} - The created freet
  * @throws {403} - If the user is not logged in
  * @throws {400} - If the freet content is empty or a stream of empty spaces
- * @throws {413} - If the freet content is more than 140 characters long
  */
 router.post(
   '/',
   [
-    userValidator.isUserLoggedIn,
-    freetValidator.isFreetExists
+    userValidator.isUserLoggedIn
   ],
   async (req: Request, res: Response) => {
     const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
@@ -83,8 +63,7 @@ router.post(
 router.delete(
   '/',
   [
-    userValidator.isUserLoggedIn,
-    freetValidator.isFreetExists
+    userValidator.isUserLoggedIn
   ],
   async (req: Request, res: Response) => {
     const userId = (req.session.userId as string) ?? '';
@@ -106,13 +85,11 @@ router.delete(
  *                 of the freet
  * @throws {404} - If the freetId is not valid
  * @throws {400} - If the freet content is empty or a stream of empty spaces
- * @throws {413} - If the freet content is more than 140 characters long
  */
 router.put(
   '/',
   [
-    userValidator.isUserLoggedIn,
-    freetValidator.isFreetExists
+    userValidator.isUserLoggedIn
   ],
   async (req: Request, res: Response) => {
     const userId = (req.session.userId as string) ?? '';

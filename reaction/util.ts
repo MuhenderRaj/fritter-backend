@@ -38,7 +38,7 @@ const constructReactionResponse = (reaction: HydratedDocument<Reaction>): Reacti
   const sadCount = reactionCopy.sad.length;
   const angryCount = reactionCopy.angry.length;
   const laughingCount = reactionCopy.laughing.length;
-  const freetId = reactionCopy.freet._id.toString();
+  const freetId = reactionCopy.freet;
   delete reactionCopy.happy;
   delete reactionCopy.sad;
   delete reactionCopy.angry;
@@ -47,7 +47,7 @@ const constructReactionResponse = (reaction: HydratedDocument<Reaction>): Reacti
   return {
     ...reactionCopy,
     _id: reactionCopy._id.toString(),
-    freet: freetId,
+    freet: freetId._id.toString(),
     happy: happyCount,
     sad: sadCount,
     angry: angryCount,

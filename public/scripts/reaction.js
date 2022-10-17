@@ -12,19 +12,19 @@ function getReactions(fields) {
 }
 
 function addReaction(fields) {
-  fetch(`/api/reactions?freetId=${fields.freetID}`, {method: 'POST', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
+  fetch(`/api/reactions?freetId=${fields.freetId}`, {method: 'POST', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
     .then(showResponse)
     .catch(showResponse);
 }
 
 function changeReaction(fields) {
-  fetch(`/api/reactions?freetId=${fields.freetID}`, {method: 'PUT', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
+  fetch(`/api/reactions?freetId=${fields.freetId}`, {method: 'PUT', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
     .then(showResponse)
     .catch(showResponse);
 }
 
 function deleteReaction(fields) {
-  fetch(`/api/reactions?freetId=${fields.freetID}`, {method: 'DELETE'})
+  fetch(`/api/reactions?freetId=${fields.freetId}`, {method: 'DELETE'})
     .then(showResponse)
     .catch(showResponse);
 }

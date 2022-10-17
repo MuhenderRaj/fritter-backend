@@ -24,7 +24,15 @@ class ReactionCollection {
    * @throws {Error} - If user has already reacted or reactionType is not valid
    */
   static async addOne(reacterId: Types.ObjectId | string, freetId: Types.ObjectId | string, reactionType: string): Promise<HydratedDocument<Reaction>> {
-    const reaction = await ReactionModel.findOne({freetId}) ?? await ReactionCollection.createOne(freetId);
+    console.log(freetId);
+
+    let reaction = await ReactionModel.findOne({freet: freetId});
+
+    if (!reaction) {
+      reaction = await ReactionCollection.createOne(freetId);
+    }
+
+    console.log('hey');
 
     const happyFound = reaction.happy.some(user => user === reacterId);
     const sadFound = reaction.sad.some(user => user === reacterId);
@@ -48,19 +56,19 @@ class ReactionCollection {
     }
 
     await reaction.save();
-    return reaction.populate('freetId');
+    return reaction.populate('freet');
   }
 
   static async createOne(freetId: Types.ObjectId | string): Promise<HydratedDocument<Reaction>> {
     const reaction = new ReactionModel({
-      freetId,
-      happy: [],
-      sad: [],
-      angry: [],
-      laughing: []
+      freet: freetId,
+      happy: Array<string>(),
+      sad: Array<string>(),
+      angry: Array<string>(),
+      laughing: Array<string>()
     });
     await reaction.save(); // Saves freet to MongoDB
-    return reaction.populate('freetId');
+    return reaction.populate('freet');
   }
 
   /**
@@ -103,7 +111,7 @@ class ReactionCollection {
     }
 
     await reaction.save();
-    return reaction.populate('freetId');
+    return reaction.populate('freet');
   }
 
   /**
@@ -143,8 +151,13 @@ class ReactionCollection {
    * @return {Promise<Boolean>} - true if the freet has been deleted, false otherwise
    */
   static async findOne(freetId: Types.ObjectId | string): Promise<HydratedDocument<Reaction>> {
-    const reaction = await ReactionModel.findOne({freetId}) ?? await ReactionCollection.createOne(freetId);
-    return reaction.populate('freetId');
+    let reaction = await ReactionModel.findOne({freet: freetId});
+
+    if (!reaction) {
+      reaction = await ReactionCollection.createOne(freetId);
+    }
+
+    return reaction;
   }
 }
 
