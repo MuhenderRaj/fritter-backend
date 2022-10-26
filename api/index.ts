@@ -12,6 +12,9 @@ import * as userValidator from '../user/middleware';
 import {userRouter} from '../user/router';
 import {freetRouter} from '../freet/router';
 import {reactionRouter} from '../reaction/router';
+import {hashtagRouter} from '../hashtag/router';
+import {feedRouter} from '../locked_feed/router';
+import {limitGroupsRouter} from '../limit_groups/router';
 
 // Load environmental variables
 dotenv.config({});
@@ -78,6 +81,9 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api/users', userRouter);
 app.use('/api/freets', freetRouter);
 app.use('/api/reactions', reactionRouter);
+app.use('/api/hashtags', hashtagRouter);
+app.use('/api/feed', feedRouter);
+app.use('/api/groups', limitGroupsRouter);
 
 // Catch all the other routes and display error message
 app.all('*', (req: Request, res: Response) => {

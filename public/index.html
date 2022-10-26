@@ -8,6 +8,9 @@
   <script src="/scripts/freet.js"></script>
   <script src="/scripts/user.js"></script>
   <script src="/scripts/reaction.js"></script>
+  <script src="/scripts/hashtag.js"></script>
+  <script src="/scripts/feed.js"></script>
+  <script src="/scripts/groups.js"></script>
   <script src="/scripts/index.js"></script>
 </head>
 
@@ -73,11 +76,6 @@
           <h3>Sign Out</h3>
           <input type="submit" value="Sign out">
         </form>
-
-        <form id="view-all-freets">
-            <h3>View All Freets</h3>
-            <input type="submit" value="View All Freets">
-          </form>
 
         <form id="view-freets-by-author">
           <h3>View Freets By Author</h3>
@@ -161,6 +159,74 @@
             <input id="id" name="freetId">
           </div>
           <input type="submit" value="Delete Reaction">
+        </form>
+
+        <form id="add-hashtag">
+          <h3>Add hashtag</h3>
+          <div>
+            <label for="id">ID:</label>
+            <input id="id" name="freetId">
+          </div>
+          <div>
+            <label for="hashtag">Hashtag:</label>
+            <textarea id="hashtag" name="hashtag"></textarea>
+          </div>
+          <input type="submit" value="Add Hashtag">
+        </form>
+
+        <form id="get-hashtags">
+          <h3>Get hashtags</h3>
+          <div>
+            <label for="id">ID:</label>
+            <input id="id" name="freetId">
+          </div>
+          <input type="submit" value="Get Hashtags">
+        </form>
+
+        <form id="delete-hashtag">
+          <h3>Delete hashtag</h3>
+          <div>
+            <label for="id">ID:</label>
+            <input id="id" name="freetId">
+          </div>
+          <div>
+            <label for="hashtag">Hashtag:</label>
+            <textarea id="hashtag" name="hashtag"></textarea>
+          </div>
+          <input type="submit" value="Delete Hashtag">
+        </form>
+        
+        <form id="get-feed">
+          <h3>Get feed</h3>
+          <input type="submit" value="Get Feed">
+        </form>
+
+        <form id="unlock-feed">
+          <h3>Unlock Feed</h3>
+          <input type="submit" value="Unlock Feed">
+        </form>
+
+        <form id="approve-post">
+          <h3>Approve post</h3>
+          <p>
+            Add one to post unlocks if the post's positive reactions 
+            are over 10, and are over the post's negative reactions
+          </p>
+          <div>
+            <label for="id">ID:</label>
+            <input id="id" name="freetId">
+          </div>
+          <input type="submit" value="Approve Post">
+        </form>
+
+        <form id="new-feed">
+          <h3>Get new feed</h3>
+          <input type="submit" value="Get New Feed">
+        </form>
+
+        <form id="get-groups">
+          <h3>Get groups</h3>
+          <input type="submit" value="Get Groups">
         </form>
       </div>
     </section>

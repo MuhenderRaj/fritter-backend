@@ -415,14 +415,7 @@ This renders the `index.html` file that will be used to interact with the backen
 - `403` if the user is not the author of the freet
 - `404` if the freetId is invalid
 
-#### `GET /api/hashtags/freets/:hashtag` - Get the two newest posts with a particular hashtag
-
-**Returns**
-
-- A success message
-- An object with two freets with the given hashtag
-
-#### `GET /api/feed/unlockFeed` - Adds 5 new posts to the user feed
+#### `GET /api/feed` - Gets all the posts in the user's feed
 
 **Returns**
 
@@ -432,13 +425,21 @@ This renders the `index.html` file that will be used to interact with the backen
 **Throws**
 
 - `403` if the user is not logged in
+
+
+#### `POST /api/feed/unlockFeed` - Adds 5 new posts to the user feed if unlockPosts is non-zero
+
+**Returns**
+
+- A success message
+- An object with the feed posts
+
+**Throws**
+
+- `403` if the user is not logged in
 - `404` if the user has no post unlocks left
 
-#### `POST /api/feed/approvePost` - Add 1 to the user's post unlocks
-
-**Body**
-
-- `freetId` _{string}_ - The freet by the user that was approved
+#### `POST /api/feed/approvePost/:freetId` - Add 1 to the user's post unlocks by approving a freet
 
 **Returns**
 
@@ -449,5 +450,28 @@ This renders the `index.html` file that will be used to interact with the backen
 
 - `403` if the user is not logged in
 - `403` if the user is not the author of the freet
-- `403` if the freet was not approved (not enough positive reactions)
+- `401` if the freet was not approved (not enough positive reactions)
 - `404` if the freetId is invalid
+
+#### `GET /api/feed/newFeed` - Refresh the user's feed
+
+**Returns**
+
+- A success message
+- An object with the new posts in the feed
+
+**Throws**
+
+- `403` if the user is not logged in
+- `401` if it hasn't been a day since last refresh
+
+#### `GET /api/groups` - Gets all the groups in the user's account
+
+**Returns**
+
+- A success message
+- An object with the groups of the user
+
+**Throws**
+
+- `403` if the user is not logged in

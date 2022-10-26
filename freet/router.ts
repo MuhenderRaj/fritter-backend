@@ -8,14 +8,6 @@ import * as util from './util';
 const router = express.Router();
 
 /**
- * Get all the freets
- *
- * @name GET /api/freets
- *
- * @return {FreetResponse[]} - A list of all the freets sorted in descending
- *                      order by date modified
- */
-/**
  * Get freets by author.
  *
  * @name GET /api/freets?authorId=id
@@ -27,17 +19,6 @@ const router = express.Router();
  */
 router.get(
   '/',
-  async (req: Request, res: Response, next: NextFunction) => {
-    // Check if authorId query parameter was supplied
-    if (req.query.author !== undefined) {
-      next();
-      return;
-    }
-
-    const allFreets = await FreetCollection.findAll();
-    const response = allFreets.map(util.constructFreetResponse);
-    res.status(200).json(response);
-  },
   [
     userValidator.isAuthorExists
   ],
